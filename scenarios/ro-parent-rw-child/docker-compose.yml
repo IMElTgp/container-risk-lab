@@ -1,0 +1,25 @@
+services:
+  ro-parent-rw-child:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-ro-parent-rw-child
+    command: ["sleep", "infinity"]
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/ro-parent-rw-child/parent
+        target: /lab/overlay-parent
+        read_only: true
+      - type: bind
+        source: /tmp/container-risk-labs/ro-parent-rw-child/parent/writable-child
+        target: /lab/overlay-parent/writable-child
+        read_only: false
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "ro-parent-rw-child"
+      container-risk-labs.intent: "readonly-parent-with-rw-child-overlay"
+

@@ -1,0 +1,18 @@
+services:
+  cap-sys-admin:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-sys-admin
+    command: ["sleep", "infinity"]
+    cap_drop:
+      - ALL
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-sys-admin"
+      container-risk-labs.intent: "high-risk-capability"
+

@@ -1,0 +1,17 @@
+services:
+  seccomp-unconfined:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-seccomp-unconfined
+    command: ["sleep", "infinity"]
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=unconfined
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "seccomp-unconfined"
+      container-risk-labs.intent: "unconfined-seccomp"
+
