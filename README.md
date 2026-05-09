@@ -12,6 +12,8 @@ Do not reuse these Compose files in production environments.
 This lab does not include exploit code, reverse shells, persistence logic, or external command-and-control behavior.
 The goal is to create host-observable runtime signals that a detector should flag.
 
+At the current MVP stage, these scenarios are mainly used to validate detection correctness. Later phases will add controlled, non-destructive case studies that also demonstrate why specific `Fatal`, `HighRisk`, or composition findings deserve their rating.
+
 ## Requirements
 
 - Linux host or Linux VM with Docker Engine
