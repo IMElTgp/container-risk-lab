@@ -1,0 +1,24 @@
+services:
+  cap-dac-read-search:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-dac-read-search
+    command: ["sleep", "infinity"]
+    read_only: true
+    cap_drop:
+      - ALL
+    cap_add:
+      - DAC_READ_SEARCH
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/cap-dac-override-host-mount/host-view
+        target: /lab
+        read_only: false
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-dac-read-search"
+      container-risk-labs.intent: "single-rule-cap-dac-read-search"

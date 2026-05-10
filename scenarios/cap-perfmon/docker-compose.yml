@@ -1,0 +1,26 @@
+services:
+  cap-perfmon:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-perfmon
+    command:
+      - sh
+      - -lc
+      - cp /lab/helper/perf_event_probe /tmp/perf_event_probe && chmod +x /tmp/perf_event_probe && exec sleep infinity
+    cap_drop:
+      - ALL
+    cap_add:
+      - PERFMON
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/cap-perfmon
+        target: /lab/helper
+        read_only: true
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-perfmon"
+      container-risk-labs.intent: "single-rule-cap-perfmon"

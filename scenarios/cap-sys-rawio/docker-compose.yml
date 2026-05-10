@@ -1,0 +1,23 @@
+services:
+  cap-sys-rawio:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-sys-rawio
+    command: ["sleep", "infinity"]
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - /tmp/container-risk-labs/cap-sys-rawio:/labhelpers:ro
+    cap_drop:
+      - ALL
+    cap_add:
+      - SYS_RAWIO
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-sys-rawio"
+      container-risk-labs.intent: "single-rule-cap-sys-rawio"

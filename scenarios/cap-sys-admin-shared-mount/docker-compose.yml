@@ -1,0 +1,24 @@
+services:
+  cap-sys-admin-shared-mount:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-sys-admin-shared-mount
+    command: ["sleep", "infinity"]
+    cap_drop:
+      - ALL
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/shared-mount/shared-bind
+        target: /lab/shared-mount
+        bind:
+          propagation: shared
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-sys-admin-shared-mount"
+      container-risk-labs.intent: "composition-cap-sys-admin-plus-shared-propagation"

@@ -1,0 +1,19 @@
+services:
+  seccomp-unconfined-cap-sys-admin:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-seccomp-unconfined-cap-sys-admin
+    command: ["sleep", "infinity"]
+    cap_drop:
+      - ALL
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=unconfined
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "seccomp-unconfined-cap-sys-admin"
+      container-risk-labs.intent: "composition-unconfined-seccomp-plus-cap-sys-admin"
+

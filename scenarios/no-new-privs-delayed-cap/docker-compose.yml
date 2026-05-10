@@ -1,0 +1,26 @@
+services:
+  no-new-privs-delayed-cap:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-no-new-privs-delayed-cap
+    command:
+      - sh
+      - -lc
+      - cp /lab/helper/delayed_cap_helper /tmp/delayed_cap_helper && chmod +x /tmp/delayed_cap_helper && mkdir -p /tmp/delayed-cap-state && exec env STATE_DIR=/tmp/delayed-cap-state /tmp/delayed_cap_helper
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETUID
+      - SETPCAP
+    security_opt:
+      - label=disable
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/no-new-privs-delayed-cap
+        target: /lab/helper
+        read_only: true
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "no-new-privs-delayed-cap"
+      container-risk-labs.intent: "composition-no-new-privs-plus-delayed-capability"

@@ -1,0 +1,23 @@
+services:
+  cap-dac-override-writable-host-mount:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-dac-override-writable-host-mount
+    command: ["sleep", "infinity"]
+    cap_drop:
+      - ALL
+    cap_add:
+      - DAC_OVERRIDE
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/cap-dac-override-host-mount/host-view
+        target: /host
+        read_only: false
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-dac-override-writable-host-mount"
+      container-risk-labs.intent: "composition-cap-dac-override-plus-writable-host-view"
+

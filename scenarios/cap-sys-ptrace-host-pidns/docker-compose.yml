@@ -1,0 +1,18 @@
+services:
+  cap-sys-ptrace-host-pidns:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-sys-ptrace-host-pidns
+    command: ["sleep", "infinity"]
+    pid: "host"
+    cap_drop:
+      - ALL
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-sys-ptrace-host-pidns"
+      container-risk-labs.intent: "composition-cap-sys-ptrace-plus-host-pidns"

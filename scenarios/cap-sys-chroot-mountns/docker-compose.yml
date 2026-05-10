@@ -1,0 +1,27 @@
+services:
+  cap-sys-chroot-mountns:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-sys-chroot-mountns
+    command:
+      - sh
+      - -lc
+      - cp /lab/helper/mountns_chroot_helper /tmp/mountns_chroot_helper && chmod +x /tmp/mountns_chroot_helper && mkdir -p /tmp/chroot-dev-state && exec env STATE_DIR=/tmp/chroot-dev-state /tmp/mountns_chroot_helper
+    cap_drop:
+      - ALL
+    cap_add:
+      - SYS_CHROOT
+      - SYS_ADMIN
+      - SETPCAP
+    security_opt:
+      - label=disable
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/cap-sys-chroot-mountns
+        target: /lab/helper
+        read_only: true
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-sys-chroot-mountns"
+      container-risk-labs.intent: "composition-cap-sys-chroot-plus-thread-mountns-deviation"

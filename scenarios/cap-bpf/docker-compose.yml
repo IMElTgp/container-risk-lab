@@ -1,0 +1,23 @@
+services:
+  cap-bpf:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-bpf
+    command: ["sleep", "infinity"]
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - /tmp/container-risk-labs/cap-bpf:/labhelpers:ro
+    cap_drop:
+      - ALL
+    cap_add:
+      - BPF
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-bpf"
+      container-risk-labs.intent: "single-rule-cap-bpf"

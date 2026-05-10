@@ -1,0 +1,18 @@
+services:
+  cap-mknod:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-mknod
+    command: ["sleep", "infinity"]
+    cap_drop:
+      - ALL
+    cap_add:
+      - MKNOD
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-mknod"
+      container-risk-labs.intent: "single-rule-cap-mknod"

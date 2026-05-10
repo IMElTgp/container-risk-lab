@@ -1,0 +1,24 @@
+services:
+  cap-dac-override-single:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-dac-override-single
+    command: ["sleep", "infinity"]
+    read_only: true
+    cap_drop:
+      - ALL
+    cap_add:
+      - DAC_OVERRIDE
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/cap-dac-override-host-mount/host-view
+        target: /lab
+        read_only: false
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-dac-override-single"
+      container-risk-labs.intent: "single-rule-cap-dac-override"
