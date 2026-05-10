@@ -1,0 +1,26 @@
+services:
+  cap-net-raw:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-net-raw
+    command:
+      - sh
+      - -lc
+      - cp /lab/helper/raw_socket_probe /tmp/raw_socket_probe && chmod +x /tmp/raw_socket_probe && exec sleep infinity
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_RAW
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/cap-net-raw
+        target: /lab/helper
+        read_only: true
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-net-raw"
+      container-risk-labs.intent: "single-rule-cap-net-raw"

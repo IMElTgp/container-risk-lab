@@ -1,0 +1,22 @@
+services:
+  host-userns:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-host-userns
+    command: ["sleep", "infinity"]
+    userns_mode: "host"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/host-userns/host-view
+        target: /lab-host
+        read_only: false
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "host-userns"
+      container-risk-labs.intent: "user-namespace-host-sharing"

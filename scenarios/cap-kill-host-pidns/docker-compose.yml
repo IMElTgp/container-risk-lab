@@ -1,0 +1,19 @@
+services:
+  cap-kill-host-pidns:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-kill-host-pidns
+    command: ["sleep", "infinity"]
+    pid: "host"
+    cap_drop:
+      - ALL
+    cap_add:
+      - KILL
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-kill-host-pidns"
+      container-risk-labs.intent: "composition-cap-kill-plus-host-pidns"
+

@@ -1,0 +1,21 @@
+services:
+  writable-host-mount:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-writable-host-mount
+    command: ["sleep", "infinity"]
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    volumes:
+      - type: bind
+        source: /tmp/container-risk-labs/writable-host-mount/host-view
+        target: /host
+        read_only: false
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "writable-host-mount"
+      container-risk-labs.intent: "single-rule-writable-host-mount"

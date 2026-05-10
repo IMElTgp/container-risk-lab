@@ -1,0 +1,23 @@
+services:
+  cap-sys-boot:
+    build:
+      context: ../../base
+    image: container-risk-labs-toolbox:local
+    container_name: crl-cap-sys-boot
+    command: ["sleep", "infinity"]
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - /tmp/container-risk-labs/cap-sys-boot:/labhelpers:ro
+    cap_drop:
+      - ALL
+    cap_add:
+      - SYS_BOOT
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    labels:
+      container-risk-labs.repo: "container-risk-labs"
+      container-risk-labs.scenario: "cap-sys-boot"
+      container-risk-labs.intent: "single-rule-cap-sys-boot"
